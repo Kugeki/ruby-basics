@@ -18,7 +18,7 @@ class TrainsManagerUi < NumericMenu
 
   protected
 
-  def discriptions_to_methods
+  def menu_discription
     { 'Назначить маршрут поезду' => :assign_route,
       'Прицепить вагон к поезду' => :attach_car,
       'Отцепить вагон от поезда' => :detach_car,

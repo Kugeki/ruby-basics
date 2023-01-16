@@ -43,7 +43,7 @@ class App < NumericMenu
 
   protected
 
-  def discriptions_to_methods
+  def menu_discription
     { 'Создать станцию' => :create_station,
       'Создать поезд' => :create_train,
       'Создать маршрут' => :create_route,

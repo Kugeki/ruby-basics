@@ -30,7 +30,7 @@ class NumericMenu
   attr_accessor :current_choice
 
   def take_user_choice
-    self.current_choice = UserInput.take_array_index_choice(discriptions_to_methods.keys)
+    self.current_choice = UserInput.take_array_index_choice(menu_discription.keys)
   end
 
   def process_user_choice
@@ -43,7 +43,7 @@ class NumericMenu
   end
 
   def process_user_choice!
-    send discriptions_to_methods.values[current_choice]
+    send menu_discription.values[current_choice]
   end
 
   def quit?
@@ -55,7 +55,7 @@ class NumericMenu
   end
 
   # { "Описание пункта меню" => :метод_который_будет_вызван ... }. Без выхода.
-  def discriptions_to_methods
+  def menu_discription
     raise 'Not implemented'
   end
 end

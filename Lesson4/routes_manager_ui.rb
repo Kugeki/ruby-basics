@@ -14,7 +14,7 @@ class RoutesManagerUi < NumericMenu
 
   protected
 
-  def discriptions_to_methods
+  def menu_discription
     { 'Добавить промежуточную станцию' => :add_midway_station,
       'Удалить промежуточную станцию' => :delete_midway_station,
       'Изменить начальную станцию' => :change_start_station,
