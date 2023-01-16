@@ -30,8 +30,7 @@ class RoutesManagerUi < NumericMenu
   end
 
   def add_midway_station
-    stations_ui = NumericArrayMenu.new(stations_outside_route)
-    station = stations_ui.menu 'Выберите станцию для добавления:'
+    station = UserInput.take_array_choice(stations_outside_route, 'Выберите станцию для добавления:')
     return if station.nil?
 
     route.add(station)
@@ -39,8 +38,7 @@ class RoutesManagerUi < NumericMenu
   end
 
   def delete_midway_station
-    stations_ui = NumericArrayMenu.new(route.midways)
-    station = stations_ui.menu 'Выберите станцию для удаления:'
+    station = UserInput.take_array_choice(route.midways, 'Выберите станцию для удаления:')
     return if station.nil?
 
     route.delete(station)
@@ -48,8 +46,7 @@ class RoutesManagerUi < NumericMenu
   end
 
   def change_start_station
-    stations_ui = NumericArrayMenu.new(stations_outside_route)
-    station = stations_ui.menu 'Выберите станцию для назначения начальной:'
+    station = UserInput.take_array_choice(stations_outside_route, 'Выберите станцию для назначения начальной:')
     return if station.nil?
 
     route.start = station
@@ -57,8 +54,7 @@ class RoutesManagerUi < NumericMenu
   end
 
   def change_finish_station
-    stations_ui = NumericArrayMenu.new(stations_outside_route)
-    station = stations_ui.menu 'Выберите станцию для назначения конечной:'
+    station = UserInput.take_array_choice(stations_outside_route, 'Выберите станцию для назначения конечной:')
     return if station.nil?
 
     route.finish = station

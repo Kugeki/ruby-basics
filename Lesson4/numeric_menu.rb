@@ -7,22 +7,21 @@ class NumericMenu
 
   def initialize(data: nil)
     @quit = false
-    @quit_once = false
     @current_choice = nil
     @data = data
     @value_to_return = nil
     @start_text = ''
   end
 
-  def menu(start_text = '')
+  def menu
     return nil if quit?
 
-    @start_text = start_text
-    start_actions
-    until loop_condition
-      loop_actions
+    @value_to_return = nil
+    until quit?
+      puts start_text
+      take_user_choice
+      process_user_choice
     end
-    finish_actions
     @value_to_return
   end
 
@@ -30,40 +29,21 @@ class NumericMenu
 
   attr_accessor :current_choice
 
-  def start_actions
-    @value_to_return = nil
-  end
-
-  def loop_actions
-    puts start_text
-    puts menu_text
-    take_user_choice
-    UserInput.clear
-    process_user_choice
-  end
-
-  def finish_actions
-    @quit_once = false
-  end
-
-  def loop_condition
-    quit? || quit_once?
-  end
-
-  def menu_text
-    UserInput.array_as_numeric_list(discriptions_to_methods_all.keys)
-  end
-
   def take_user_choice
-    self.current_choice = UserInput.take_ranged_choice(0...discriptions_to_methods_all.size)
+    self.current_choice = UserInput.take_array_index_choice(discriptions_to_methods.keys)
   end
 
   def process_user_choice
-    process_user_choice! unless current_choice.nil?
+    if current_choice.nil?
+      quit!
+      return
+    end
+
+    process_user_choice!
   end
 
   def process_user_choice!
-    send discriptions_to_methods_all.values[current_choice]
+    send discriptions_to_methods.values[current_choice]
   end
 
   def quit?
@@ -74,24 +54,8 @@ class NumericMenu
     @quit = true
   end
 
-  def quit_once?
-    @quit_once
-  end
-
-  def quit_once!
-    @quit_once = true
-  end
-
-  def quit_description
-    { 'Выход' => :quit! } # TODO: не выход, а назад
-  end
-
-  def discriptions_to_methods_all
-    quit_description.merge(discriptions_to_methods)
-  end
-
-  # { "Discription of the choice" => :method_that_will_be_called ... }. Without quit.
-  def discriptions_to_methods # TODO: может сделать descriptions_from_index и methods_from_index ?
+  # { "Описание пункта меню" => :метод_который_будет_вызван ... }. Без выхода.
+  def discriptions_to_methods
     raise 'Not implemented'
   end
 end

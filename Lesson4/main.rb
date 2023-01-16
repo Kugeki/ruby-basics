@@ -22,7 +22,6 @@
 
 require_relative 'user_input'
 require_relative 'numeric_menu'
-require_relative 'numeric_array_menu'
 require_relative 'routes_manager_ui'
 require_relative 'trains_manager_ui'
 require_relative 'data'
@@ -62,7 +61,7 @@ class App < NumericMenu
 
   def create_train
     train_types = %w[Пассажирский Грузовой]
-    train_type = NumericArrayMenu.new(train_types, data: data).menu 'Выберите тип поезда: '
+    train_type = UserInput.take_array_choice(train_types, 'Выберите тип поезда: ')
     return if train_type.nil?
 
     puts 'Введите номер поезда: '
@@ -72,16 +71,17 @@ class App < NumericMenu
   end
 
   def create_route
-    stations_ui = NumericArrayMenu.new(data.stations)
-    start = stations_ui.menu 'Выберите начальную станцию: '
-    finish = stations_ui.menu 'Выберите конечную станцию: '
+    start = UserInput.take_array_choice(data.stations, 'Выберите начальную станцию: ')
+    return if start.nil?
+
+    finish = UserInput.take_array_choice(data.stations, 'Выберите конечную станцию: ')
+    return if finish.nil?
 
     data.routes << Route.new(start, finish) unless start.nil? || finish.nil?
   end
 
   def manage_trains
-    trains_ui = NumericArrayMenu.new(data.trains)
-    train = trains_ui.menu 'Выберите поезд, которым хотите управлять: '
+    train = UserInput.take_array_choice(data.trains, 'Выберите поезд, которым хотите управлять: ')
     return if train.nil?
 
     trains_manager_ui = TrainsManagerUi.new(train, data: data)
@@ -89,8 +89,7 @@ class App < NumericMenu
   end
 
   def manage_routes
-    routes_ui = NumericArrayMenu.new(data.routes)
-    route = routes_ui.menu 'Выберите маршрут, которым хотите управлять: '
+    route = UserInput.take_array_choice(data.routes, 'Выберите маршрут, которым хотите управлять: ')
     return if route.nil?
 
     routes_manager_ui = RoutesManagerUi.new(route, data: data)

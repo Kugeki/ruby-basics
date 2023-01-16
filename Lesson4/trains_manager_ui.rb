@@ -31,8 +31,8 @@ class TrainsManagerUi < NumericMenu
   end
 
   def assign_route
-    routes_ui = NumericArrayMenu.new(data.routes)
-    route = routes_ui.menu "Выберите маршут, который вы хотите назначить поезду #{train.number}:"
+    text = "Выберите маршут, который вы хотите назначить поезду #{train.number}:"
+    route = UserInput.take_array_choice(data.routes, text)
     return if route.nil?
 
     train.assign_route(route)
