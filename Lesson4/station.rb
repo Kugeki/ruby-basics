@@ -23,7 +23,7 @@ class Station
   end
 
   def to_s
-    return "#{name} без поездов" if @trains.size.zero?
+    return name if @trains.size.zero?
 
     "#{name} с поездами: #{@trains.map(&:number).join ', '}."
   end

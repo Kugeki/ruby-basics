@@ -77,8 +77,10 @@ class Train
   end
 
   def to_s
-    route_name = @route.nil? ? 'НЕТ' : @route.to_s
-    station_name = @route.nil? ? 'НЕТ' : current_station.name
+    return "поезд с номером #{number}" if @route.nil?
+
+    route_name = @route.to_s
+    station_name = current_station.name
     "поезд с номером #{number} и маршрутом #{route_name} на станции #{station_name}"
   end
 
