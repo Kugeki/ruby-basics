@@ -5,7 +5,7 @@ require_relative 'numeric_menu'
 require_relative 'routes_manager_ui'
 require_relative 'trains_manager_ui'
 
-require_relative '../data'
+require_relative '../app_data'
 require_relative '../station'
 require_relative '../route'
 require_relative '../train'

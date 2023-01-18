@@ -2,7 +2,7 @@
 
 require_relative 'ui/user_input'
 
-class Data
+class AppData
   attr_accessor :stations, :trains, :routes
 
   def initialize
