@@ -64,7 +64,8 @@ class MainUi < NumericMenu
 
   def train_type_input
     train_types = [PassengerTrain, CargoTrain]
-    index = UserInput.take_array_index_choice(%w[Пассажирский Грузовой], 'Выберите тип поезда: ')
+    return if index.nil?
+
     train_types[index]
   end
 
