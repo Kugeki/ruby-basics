@@ -64,6 +64,7 @@ class MainUi < NumericMenu
 
   def train_type_input
     train_types = [PassengerTrain, CargoTrain]
+    index = %w[Пассажирский Грузовой].take_index_choice 'Выберите тип поезда: '
     return if index.nil?
 
     train_types[index]
@@ -82,10 +83,10 @@ class MainUi < NumericMenu
 
   # текстовый интерфейс для создания маршрутов
   def create_route
-    start = UserInput.take_array_choice(data.stations, 'Выберите начальную станцию: ')
+    start = data.stations.take_choice 'Выберите начальную станцию:'
     return if start.nil?
 
-    finish = UserInput.take_array_choice(data.stations, 'Выберите конечную станцию: ')
+    finish = data.stations.take_choice 'Выберите конечную станцию:'
     return if finish.nil?
 
     data.routes << Route.new(start, finish) unless start.nil? || finish.nil?
@@ -93,7 +94,7 @@ class MainUi < NumericMenu
 
   # текстовый интерфейс для управления поездами
   def manage_trains
-    train = UserInput.take_array_choice(data.trains, 'Выберите поезд, которым хотите управлять: ')
+    train = data.trains.take_choice 'Выберите поезд, которым хотите управлять:'
     return if train.nil?
 
     trains_manager_ui = TrainsManagerUi.new(train, data: data)
@@ -102,7 +103,7 @@ class MainUi < NumericMenu
 
   # текстовый интерфейс для управления маршрутами
   def manage_routes
-    route = UserInput.take_array_choice(data.routes, 'Выберите маршрут, которым хотите управлять: ')
+    route = data.routes.take_choice 'Выберите маршрут, которым хотите управлять: '
     return if route.nil?
 
     routes_manager_ui = RoutesManagerUi.new(route, data: data)
@@ -122,7 +123,7 @@ class MainUi < NumericMenu
   end
 
   def trains_on_station_list
-    station = UserInput.take_array_choice(data.stations, 'Выберите станцию:')
+    station = data.stations.take_choice 'Выберите станцию:'
     return if station.nil?
 
     i = 1

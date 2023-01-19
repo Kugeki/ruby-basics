@@ -30,7 +30,7 @@ class NumericMenu
   attr_accessor :current_choice
 
   def take_user_choice
-    self.current_choice = UserInput.take_array_index_choice(menu_discription.keys)
+    self.current_choice = menu_discription.keys.take_index_choice
   end
 
   def process_user_choice

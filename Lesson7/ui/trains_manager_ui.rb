@@ -35,8 +35,7 @@ class TrainsManagerUi < NumericMenu
   private
 
   def assign_route
-    text = "Выберите маршут, который вы хотите назначить поезду #{train.number}:"
-    route = UserInput.take_array_choice(data.routes, text)
+    route = data.routes.take_choice "Выберите маршут, который вы хотите назначить поезду #{train.number}:"
     return if route.nil?
 
     train.assign_route(route)
@@ -70,7 +69,7 @@ class TrainsManagerUi < NumericMenu
   end
 
   def detach_car
-    car = UserInput.take_array_choice(train.cars, 'Выберите вагон')
+    car = train.cars.take_choice 'Выберите вагон'
     return if car.nil?
 
     train.detach_car(car)
@@ -80,7 +79,7 @@ class TrainsManagerUi < NumericMenu
   end
 
   def take_capacity
-    car = UserInput.take_array_choice(train.cars, 'Выберите вагон')
+    car = train.cars.take_choice 'Выберите вагон'
     return if car.nil?
 
     car.take_capacity

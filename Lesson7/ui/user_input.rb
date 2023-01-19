@@ -43,3 +43,17 @@ module UserInput
     end
   end
 end
+
+class Array
+  def take_choice(text = '')
+    UserInput.take_array_choice(self, text)
+  end
+
+  def take_index_choice(text = '')
+    UserInput.take_array_index_choice(self, text)
+  end
+
+  def as_numeric_list
+    UserInput.array_as_numeric_list(self)
+  end
+end
