@@ -82,10 +82,28 @@ class TrainsManagerUi < NumericMenu
     car = train.cars.take_choice 'Выберите вагон'
     return if car.nil?
 
-    car.take_capacity
-    puts '1 единица места успешна занята!'
+    if car.instance_of? PassengerCar
+      take_seat(car)
+    else
+      take_volume(car)
+    end
   rescue RuntimeError => e
     puts e.message
+  end
+
+  def take_seat(car)
+    car.take_seat
+    puts "Одно место успешно занято! Осталось #{car.free_seats}."
+  end
+
+  def take_volume(car)
+    puts "Свободный объём: #{car.free_volume}. Введите количество объёма, который надо занять:"
+    volume = gets.to_f
+    car.take_volume(volume)
+    puts "#{volume} объёма успешно занято! Осталось #{car.free_volume}."
+  rescue RuntimeError => e
+    puts e.message
+    retry
   end
 
   def cars_list

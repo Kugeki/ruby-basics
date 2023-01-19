@@ -13,12 +13,6 @@ class Car
     @free_capacity = capacity
   end
 
-  def take_capacity
-    raise 'Всё место уже занято.' if free_capacity.zero?
-
-    @free_capacity -= 1
-  end
-
   def taken_capacity
     capacity - free_capacity
   end
@@ -29,5 +23,13 @@ class Car
 
   def to_s
     'вагон'
+  end
+
+  protected
+
+  def take_capacity(amount)
+    raise 'Не хватает свободного места.' if (free_capacity - amount).negative?
+
+    @free_capacity -= amount
   end
 end
